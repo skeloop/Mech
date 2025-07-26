@@ -1,11 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Core
 {
 	public class Player : Mech
 	{
+
+		public Weapon Weapon;
+
+		private void Start()
+		{
+
+		}
+
 		private void Update()
 		{
+	
+			
+			
 			base.Update();
 			if (Input.GetKey(KeyCode.W))
 			{
@@ -24,6 +37,16 @@ namespace Core
 			{
 				Move(Direction.Right);
 			}
+
+			if (Input.GetMouseButton(0))
+			{
+				
+			}
+		}
+
+		private void Shoot()
+		{
+			
 		}
 	}
 }
