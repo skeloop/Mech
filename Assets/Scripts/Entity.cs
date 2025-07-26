@@ -1,4 +1,6 @@
-﻿public class Entity : MonoBehaviour
+﻿using UnityEngine;
+
+public class Entity : MonoBehaviour
 {
 		
 }

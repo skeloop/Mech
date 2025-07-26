@@ -1,4 +1,6 @@
-﻿public class Mech : Entity
+﻿using UnityEngine;
+
+public class Mech : Entity
 {
 		
 	public enum Type { None, Player, Enemy }
@@ -15,21 +17,14 @@
 	#endregion
 	private void Update()
 	{
-		// Raycast downwards to find the ground
 		RaycastHit hit;
-		// Define the origin of the raycast (e.g., slightly above the mech's current position)
-		Vector3 rayOrigin = transform.position + Vector3.up * 1f; // Start slightly above to avoid self-intersection
-
-		// Define the maximum distance for the raycast
-		float rayDistance = heightOffset + 2f; // Extend a bit beyond the heightOffset
-
-		// Layer mask for filtering what the raycast hits
-		// You can set this in the Inspector or dynamically
-		int groundLayer = LayerMask.GetMask("Ground"); // Assumes you have a "Ground" layer
+		Vector3 rayOrigin = transform.position + Vector3.up * 1f; 
+		
+		float rayDistance = heightOffset + 2f; 
+		int groundLayer = LayerMask.GetMask("Ground"); 
 
 		if (Physics.Raycast(rayOrigin, Vector3.down, out hit, rayDistance, groundLayer))
 		{
-			// If the raycast hits something on the "Ground" layer
 			transform.position = new Vector3(transform.position.x, hit.point.y + heightOffset, transform.position.z);
 		}
 
@@ -53,11 +48,9 @@
 				transform.position += transform.right * moveSpeed * Time.deltaTime;
 			}
 		}
-			
-
+		
 	}
-
-	// You might want to visualize the raycast in the editor for debugging
+	
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
