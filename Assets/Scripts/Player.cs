@@ -6,22 +6,23 @@ namespace Core
 	{
 		private void Update()
 		{
+			base.Update();
 			if (Input.GetKey(KeyCode.W))
 			{
-				transform.position += transform.forward * moveSpeed * Time.deltaTime;
+				Move(Direction.Forward);
 			} 
 			else if (Input.GetKey(KeyCode.S))
 			{
-				transform.position -= transform.forward * moveSpeed * Time.deltaTime;
+				Move(Direction.Backward);
 			}
 			
 			if (Input.GetKey(KeyCode.A))
 			{
-				transform.position -= transform.right * moveSpeed * Time.deltaTime;
+				Move(Direction.Left);
 			} 
 			else if (Input.GetKey(KeyCode.D))
 			{
-				transform.position += transform.right * moveSpeed * Time.deltaTime;
+				Move(Direction.Right);
 			}
 		}
 	}

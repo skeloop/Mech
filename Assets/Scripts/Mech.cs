@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 
-public class Mech : Entity
+public enum Direction {Forward, Backward, Left, Right}
+
+public abstract class Mech : Entity
 {
-		
 	#region Stats
-	[Header("Stats")] [Range(0,100)]    public int health = 100;
+	[Header("Stats")] 
+		
+	[Range(0,50)] 	public float moveSpeed = 5f;
+	[Range(0,50)] 	public float glideSpeed = 15f;
 
-	[Range(0,50)]                       public float moveSpeed = 5f;
-
-	[Range(0,500)]                      public float energy = 500;
-	[Range(0,50)]                       public float energyRegenerationPerSecond = 5;
-	[Range(0,10)]                       public float heightOffset = 2.5f;
+	// wird zum wegboosten verwendet -> x anzahl
+	[Range(0,500)]	public float energy = 500;
+	[Range(0,50)] 	public float energyRegenerationPerSecond = 5;
+	
+	[Range(0,10)] 	public float heightOffset = 2.5f;
 	#endregion
-	private void Update()
+	protected void Update()
 	{
 		RaycastHit hit;
 		Vector3 rayOrigin = transform.position + Vector3.up * 1f; 
@@ -24,10 +28,30 @@ public class Mech : Entity
 		{
 			transform.position = new Vector3(transform.position.x, hit.point.y + heightOffset, transform.position.z);
 		}
-
-
-		
 	}
+
+	protected void Move(Direction direction)
+	{
+		switch (direction)
+		{
+			case Direction.Forward:
+				transform.position += transform.forward * moveSpeed * Time.deltaTime;
+				break;
+			case Direction.Backward:
+				transform.position -= transform.forward * moveSpeed * Time.deltaTime;
+				break;
+			case Direction.Left:
+				transform.position -= transform.right * moveSpeed * Time.deltaTime;
+				break;
+			case Direction.Right:
+				transform.position += transform.right * moveSpeed * Time.deltaTime;
+				break;
+		}
+	}
+	
+	float lastBoostTime = 0;
+
+
 	
 	private void OnDrawGizmos()
 	{
